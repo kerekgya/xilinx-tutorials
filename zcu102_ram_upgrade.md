@@ -43,3 +43,4 @@ After booting, I found that instead of the expected 14 GB of available RAM, all 
 Also when trying to set CMA to 8192 MB I got an error saying that 4 GB is the upper limit, and no CMA was allocated, but I was able to run the vector add example regardless...
 ????????????????
 I have no idea what is happening??
+[this](https://support.xilinx.com/s/article/000034737?language=en_US) might help. Or not.
