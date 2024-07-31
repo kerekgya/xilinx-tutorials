@@ -1,8 +1,44 @@
-# Zynq-7000 XRT for petalinux 2023.1/2023.2
+# Zynq-7000 XRT for petalinux version 2023.1 and above
 
 If you try to create a custom Vitis platform for any Zynq-7000 device, or need the xrt rootfs package for some other reason, you are going to find that Xilinx has removed support for xrt from every Zynq-7000 device. Although these devices use the now dated 32-bit armhf architecture, some are still using these FPGA-s, so I sought a solution to this problem.
 
-In this tutorial I am only going to focus on the xrt xompatibility problem from the platform generation process, there are already tutorials on the internet covering the other steps such as [this](https://www.hackster.io/news/microzed-chronicles-microzed-zynq-7000-vitis-platform-creation-df25e1054fb6) or [this](https://www.hackster.io/anujvaishnav20/building-custom-sdsoc-platform-with-petalinux-268bfd).
+In this tutorial I am only going to focus on the xrt xompatibility problem from the platform generation process, as there are already tutorials on the internet covering the other steps such as [this](https://www.hackster.io/news/microzed-chronicles-microzed-zynq-7000-vitis-platform-creation-df25e1054fb6) or [this](https://www.hackster.io/anujvaishnav20/building-custom-sdsoc-platform-with-petalinux-268bfd), here follows a very condensed recap of the aforementioned tutorials:
+
+```
+. /opt/Xilinx/petalinux/2021.2/settings.sh
+petalinux-create -t project -s zedboard-2021.2.bsp
+. /opt/Xilinx/Vivado/2024.1/settings.sh
+vivado
+#open the project from the hardware folder of the petalinux project, upgrade everything generate bitstream export hardware
+#new terminal
+. /opt/Xilinx/petalinux/2024.1/settings.sh
+petalinux-create -t project --template zynq --name zedboard
+petalinux-config --get-hw-description=../zedboard.2024.1.xsa
+#in the menuconfig change filesystem to ext4, bootargs to earlycon console=ttyPS0,115200 clk_ignore_unused root=/dev/mmcblk0p2 rw rootwait cma=256M
+```
+edit project-spec/meta-user, add
+```
+CONFIG_xrt
+CONFIG_xrt-dev
+CONFIG_zocl
+CONFIG_opencl-clhpp-dev
+CONFIG_opencl-headers-dev
+CONFIG_packagegroup-petalinux-opencv
+```
+edit project-spec/meta-user/system-user.dtsi, add (i don't know why or if this is necesary)
+```
+&amba {
+ zyxclmm_drm {
+ 		compatible = “xlnx,zocl”;
+ 		status = “okay”;
+ 	};
+ };
+```
+```
+petalinux-config -c rootfs # select everything in user packages
+petalinux-build
+```
+```
 
 If you were to try to build a petalinux project with xrt, something similar to the following error message would appear
 ```
@@ -22,7 +58,7 @@ zedboard_2023.2/zedboard/build/tmp/work/cortexa9t2hf-neon-xilinx-linux-gnueabi/x
   414 |         std::string argnm{symname, symname + std::min(strlen(symname), dynstr->get_size())};
       |                                              ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
-According to the ELFIO documentation, the dynsrt->get_size() returns uint64_t, which it seems cannot be implicitly converted to size_t, so the solution is easy, you just need to open the file ```build/tmp/work/cortexa9t2hf-neon-xilinx-linux-gnueabi/xrt/202320.2.16.0-r0/git/src/runtime_src/core/common/api/xrt_module.cpp``` (```build/tmp/work/cortexa9t2hf-neon-xilinx-linux-gnueabi/xrt/202410.2.17.0-r0/git/src/runtime_src/core/common/api/xrt_module.cpp``` on version 2024.1), and edit line 414, cast the get_size() to size_t so that it looks like this:
+According to the ELFIO documentation, the dynsrt->get_size() returns uint64_t, which it seems cannot be implicitly converted to size_t, so the solution is easy, you just need to open the file ```build/tmp/work/cortexa9t2hf-neon-xilinx-linux-gnueabi/xrt/202320.2.16.0-r0/git/src/runtime_src/core/common/api/xrt_module.cpp``` (```build/tmp/work/cortexa9t2hf-neon-xilinx-linux-gnueabi/xrt/202410.2.17.0-r0/git/src/runtime_src/core/common/api/xrt_module.cpp``` on version 2024.1), and edit line 414 (lines 565 and 634 for 2024.1), cast the get_size() to size_t so that it looks like this:
 ```
 std::string argnm{symname, symname + std::min(strlen(symname), (size_t)dynstr->get_size())};
 ```
