@@ -22,7 +22,7 @@ zedboard_2023.2/zedboard/build/tmp/work/cortexa9t2hf-neon-xilinx-linux-gnueabi/x
   414 |         std::string argnm{symname, symname + std::min(strlen(symname), dynstr->get_size())};
       |                                              ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
-According to the ELFIO documentation, the dynsrt->get_size() returns uint64_t, which it seems cannot be implicitly converted to size_t, so the solution is easy, you just need to open the file zedboard_2023.2/zedboard/build/tmp/work/cortexa9t2hf-neon-xilinx-linux-gnueabi/xrt/202320.2.16.0-r0/git/src/runtime_src/core/common/api/xrt_module.cpp, and edit line 414, cast the get_size() to size_t so that it looks like this:
+According to the ELFIO documentation, the dynsrt->get_size() returns uint64_t, which it seems cannot be implicitly converted to size_t, so the solution is easy, you just need to open the file ```build/tmp/work/cortexa9t2hf-neon-xilinx-linux-gnueabi/xrt/202320.2.16.0-r0/git/src/runtime_src/core/common/api/xrt_module.cpp``` (```build/tmp/work/cortexa9t2hf-neon-xilinx-linux-gnueabi/xrt/202410.2.17.0-r0/git/src/runtime_src/core/common/api/xrt_module.cpp``` on version 2024.1), and edit line 414, cast the get_size() to size_t so that it looks like this:
 ```
 std::string argnm{symname, symname + std::min(strlen(symname), (size_t)dynstr->get_size())};
 ```
