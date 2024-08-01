@@ -38,7 +38,6 @@ edit project-spec/meta-user/system-user.dtsi, add (i don't know why or if this i
 petalinux-config -c rootfs # select everything in user packages
 petalinux-build
 ```
-```
 
 If you were to try to build a petalinux project with xrt, something similar to the following error message would appear
 ```
@@ -67,3 +66,15 @@ std::string argnm{symname, symname + std::min(strlen(symname), (size_t)dynstr->g
 After making this change the petalinux project should build succesfully.
 
 Note that in Vitis 2023.2 the hw_emu does not work for Zynq-7000 devices, the wonderful team at Xilinx started modifying the code but stopped half way through. (I am not kidding, you can check the Xilinx/Vitis/2023.2/bin/launch_emulator.py file around line 814) If I find a solution, I might write a tutorial.
+
+In version 2024.1, petalinux-build --sdk also fails. Edit ```build/tmp/work/x86_64-nativesdk-petalinux-linux/nativesdk-libxcrypt/4.4.30-r0/git/build-aux/scripts/BuildCommon.pm``` and modify it according to [this commit](https://github.com/besser82/libxcrypt/pull/171/commits/ce562f4d33dc090fcd8f6ea1af3ba32cdc2b3c9c). Several perl modules are also missing, I installed these (Text::Tabs, Text::Template?, open, utf8, lib, bin, if, File::Spec::Functions) in a directory in my home folder (download package from cpan, tar -xf, perl Makefile.PL INSTALL_BASE=/home/username/perl, make install) and add BEGIN {push @INC, '/home/username/perl/lib/perl5'} above the required lines in the files 
+```
+build/tmp/work/x86_64-nativesdk-petalinux-linux/nativesdk-libxcrypt/4.4.30-r0/git/build-aux/scripts/expand-selected-hashes
+build/tmp/work/x86_64-nativesdk-petalinux-linux/nativesdk-libxcrypt/4.4.30-r0/git/build-aux/scripts/gen-crypt-hashes-h
+build/tmp/work/x86_64-nativesdk-petalinux-linux/nativesdk-libxcrypt/4.4.30-r0/git/build-aux/scripts/gen-crypt-symbol-vers-h
+build/tmp/work/x86_64-nativesdk-petalinux-linux/nativesdk-libxcrypt/4.4.30-r0/git/build-aux/scripts/gen-crypt-h
+build/tmp/work/x86_64-nativesdk-petalinux-linux/nativesdk-libxcrypt/4.4.30-r0/git/build-aux/scripts/gen-libcrypt-map
+build/tmp/work/x86_64-nativesdk-petalinux-linux/nativesdk-automake/1.16.5-r0/automake-1.16.5/doc/help2man
+build/tmp/work/x86_64-nativesdk-petalinux-linux/nativesdk-autoconf/2.71-r0/recipe-sysroot-native/usr/bin/help2man
+```
+
