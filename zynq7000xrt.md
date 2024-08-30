@@ -16,7 +16,7 @@ petalinux-create -t project --template zynq --name zedboard
 petalinux-config --get-hw-description=../zedboard.2024.1.xsa
 #in the menuconfig change filesystem to ext4, bootargs to earlycon console=ttyPS0,115200 clk_ignore_unused root=/dev/mmcblk0p2 rw rootwait cma=256M
 ```
-edit project-spec/meta-user, add
+edit project-spec/meta-user/conf/user-rootfsconfig, add
 ```
 CONFIG_xrt
 CONFIG_xrt-dev
