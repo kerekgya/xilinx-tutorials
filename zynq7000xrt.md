@@ -1,7 +1,7 @@
 # Zynq-7000 XRT for petalinux version 2023.1 and above
 
 If you try to create a custom Vitis platform for any Zynq-7000 device, or need the xrt rootfs package for some other reason, you are going to find that Xilinx has removed support for xrt from every Zynq-7000 device. Although these devices use the now dated 32-bit armhf architecture, many[^1] are still using these FPGA-s, so I sought a solution to this problem.
-[^1] nobody
+[^1]: nobody
 
 In this tutorial I am only going to focus on the xrt xompatibility problem from the platform generation process, as there are already tutorials on the internet covering the other steps such as [this](https://www.hackster.io/news/microzed-chronicles-microzed-zynq-7000-vitis-platform-creation-df25e1054fb6) or [this](https://www.hackster.io/anujvaishnav20/building-custom-sdsoc-platform-with-petalinux-268bfd), here follows a very condensed recap of the aforementioned tutorials:
 
