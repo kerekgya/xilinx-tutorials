@@ -40,7 +40,7 @@ petalinux-config -c rootfs # select everything in user packages
 petalinux-build
 ```
 
-If you were to try to build a petalinux project with xrt, something similar to the following error message would appear
+For version 2024.2 this build will suceed, but on earlier versions, if you were to try to build a petalinux project with xrt, something similar to the following error message would appear
 ```
 ERROR: Nothing RPROVIDES 'xrt' (but components/yocto/layers/meta-petalinux/recipes-core/images/petalinux-image-minimal.bb RDEPENDS on or otherwise requires it)
 
