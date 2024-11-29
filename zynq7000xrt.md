@@ -1,6 +1,6 @@
 ---
 title: Zynq-7000 XRT for petalinux version 2023.1 and above
-layout: page
+layout: default
 permalink: /zynq7000xrt.md
 theme: minima
 ---
