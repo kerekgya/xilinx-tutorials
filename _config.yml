@@ -31,10 +31,12 @@ title: Xilinx tutorials
 #github_username:  jekyll
 
 # Build settings
-#theme: minima
+theme: minima
 #plugins:
 #  - jekyll-feed
 #
+classes: wide
+
 markdown: kramdown
 
 ###
