@@ -25,6 +25,7 @@ title: Xilinx tutorials
   line in _config.yml. It will appear in your document head meta (for
   Google search results) and in your feed.xml site description.
 #baseurl: "" # the subpath of your site, e.g. /blog
+domain: kerekgya.github.io
 url: "https://kerekgya.github.io/xilinx-tutorials" # the base hostname & protocol for your site, e.g. http://example.com
 #twitter_username: jekyllrb
 #github_username:  jekyll
