@@ -1,5 +1,7 @@
 ---
 title: Zynq-7000 XRT for petalinux version 2023.1 and above
+layout: template
+filename: zynq7000xrt.md
 ---
 # Zynq-7000 XRT for petalinux version 2023.1 and above
 
