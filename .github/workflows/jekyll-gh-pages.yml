@@ -66,7 +66,7 @@ jobs:
           # The path to the root of the website
           path-to-root: # optional, default is .
           # The url of your webpage
-          base-url-path: https://kerekgya.github.ui/xilinx-tutorials
+          base-url-path: https://kerekgya.github.io/xilinx-tutorials
           # Indicates whether to include html files in the sitemap.
           include-html: # optional, default is true
           # Indicates whether to include pdf files in the sitemap.
