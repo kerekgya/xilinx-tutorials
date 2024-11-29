@@ -1,3 +1,6 @@
+---
+title: Creating a Vitis platform to boot the ZCU102 from SATA
+---
 # Creating a Vitis platform to boot the ZCU102 from SATA
 To prepare the SATA drive, create a single partition on the disk, and write the petalinux rootfs to it.
 ```sh

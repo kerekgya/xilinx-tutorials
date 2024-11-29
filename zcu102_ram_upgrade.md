@@ -1,3 +1,6 @@
+---
+title: Upgrade RAM on Xilinx zcu102
+---
 # Upgrade RAM on Xilinx zcu102
 # Disclamier: this guide kind of works, there are some parts where I don't understand what is happening and I only tested this with the basic vadd example
 The Xilinx zcu102 FPGA comes with a 4 GB DDR4 SODIMM on board. If you need more RAM, you can easily replace it, but reconfiguring the software to actually be able to use the capacity is a bit tricky.
