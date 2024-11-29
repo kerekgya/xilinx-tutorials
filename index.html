@@ -8,7 +8,8 @@
         let htmlString = '<ul>';
 
         for (let file of data) {
-          htmlString += `<li><a href="${file.path}">${file.name}</a></li>`;
+          if(!/.*\.md$/.test(file.name)) continue;
+          htmlString += `<li><a href="${file.path.replace('.md', '.html')}">${file.name}</a></li>`;
         }
 
         htmlString += '</ul>';
