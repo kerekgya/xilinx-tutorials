@@ -1,6 +1,6 @@
 ---
 title: Zynq-7000 XRT for petalinux version 2023.1 and above
-layout: default
+layout: page
 permalink: /zynq7000xrt.md
 ---
 # Zynq-7000 XRT for petalinux version 2023.1 and above
