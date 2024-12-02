@@ -28,7 +28,7 @@ title: Xilinx tutorials
 #domain: kerekgya.github.io
 #url: "https://kerekgya.github.io/xilinx-tutorials" # the base hostname & protocol for your site, e.g. http://example.com
 #twitter_username: jekyllrb
-#github_username:  jekyll
+github_username:  kerekgya
 
 # Build settings
 theme: minima
