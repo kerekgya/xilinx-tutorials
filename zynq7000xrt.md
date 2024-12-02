@@ -87,4 +87,5 @@ build/tmp/work/x86_64-nativesdk-petalinux-linux/nativesdk-libxcrypt/4.4.30-r0/gi
 build/tmp/work/x86_64-nativesdk-petalinux-linux/nativesdk-automake/1.16.5-r0/automake-1.16.5/doc/help2man
 build/tmp/work/x86_64-nativesdk-petalinux-linux/nativesdk-autoconf/2.71-r0/recipe-sysroot-native/usr/bin/help2man
 ```
+For 2024.2, you also need to edit ```build/tmp/work/x86_64-nativesdk-petalinux-linux/nativesdk-autoconf/2.72e/autoconf-2.72e/man/autom4te.w```, and replace the relative path with and absolute opne
 
