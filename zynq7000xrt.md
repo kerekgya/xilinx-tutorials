@@ -87,5 +87,14 @@ build/tmp/work/x86_64-nativesdk-petalinux-linux/nativesdk-libxcrypt/4.4.30-r0/gi
 build/tmp/work/x86_64-nativesdk-petalinux-linux/nativesdk-automake/1.16.5-r0/automake-1.16.5/doc/help2man
 build/tmp/work/x86_64-nativesdk-petalinux-linux/nativesdk-autoconf/2.71-r0/recipe-sysroot-native/usr/bin/help2man
 ```
-For 2024.2, you also need to edit ```build/tmp/work/x86_64-nativesdk-petalinux-linux/nativesdk-autoconf/2.72e/autoconf-2.72e/man/autom4te.w```, and replace the relative path with and absolute opne
+For 2024.2, generateing man pages for automake and aotuconf also fails. The easiest way to solve this is skipping their generation altogether, by removeing every file from their respective folders, and creating and empty local.mk file in the. 
+```bash
+rm -r build/tmp/work/x86_64-nativesdk-petalinux-linux/nativesdk-autoconf/2.72e/autoconf-2.72e/man/
+mkdir build/tmp/work/x86_64-nativesdk-petalinux-linux/nativesdk-autoconf/2.72e/autoconf-2.72e/man/
+touch build/tmp/work/x86_64-nativesdk-petalinux-linux/nativesdk-autoconf/2.72e/autoconf-2.72e/man/local.mk
+
+rm -r build/tmp/work/x86_64-nativesdk-petalinux-linux/nativesdk-automake/1.16.5/automake-1.16.5/man/
+mkdir build/tmp/work/x86_64-nativesdk-petalinux-linux/nativesdk-automake/1.16.5/automake-1.16.5/man/
+touch build/tmp/work/x86_64-nativesdk-petalinux-linux/nativesdk-automake/1.16.5/automake-1.16.5/man/local.mk
+```
 
