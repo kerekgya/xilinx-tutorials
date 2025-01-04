@@ -2,6 +2,7 @@
 title: Zynq-7000 XRT for petalinux version 2023.1 and above
 layout: default
 classes: wide
+last_modified_at: 2024-01-05
 ---
 # Zynq-7000 XRT for petalinux version 2023.1 and above
 
@@ -77,7 +78,8 @@ After making this change the petalinux project should build succesfully.
 
 Note that in Vitis 2023.2 the hw_emu does not work for Zynq-7000 devices, the wonderful team at Xilinx started modifying the code but stopped half way through. (I am not kidding, you can check the Xilinx/Vitis/2023.2/bin/launch_emulator.py file around line 814) If I find a solution, I might write a tutorial.
 
-In version 2024.1, petalinux-build --sdk also fails. I only encountered these errors in Ubuntu 20.04, but not in 22.04. I have no idea what is happening and why. Edit ```build/tmp/work/x86_64-nativesdk-petalinux-linux/nativesdk-libxcrypt/4.4.30-r0/git/build-aux/scripts/BuildCommon.pm``` and modify it according to [this commit](https://github.com/besser82/libxcrypt/pull/171/commits/ce562f4d33dc090fcd8f6ea1af3ba32cdc2b3c9c). Several perl modules are also missing, I installed these (Text::Tabs, Text::Template?, open, utf8, lib, bin, if, File::Spec::Functions) in a directory in my home folder (download package from cpan, tar -xf, ```perl Makefile.PL INSTALL_BASE=/home/username/perl```, ```make install```) and add ```BEGIN {push @INC, '/home/username/perl/lib/perl5'}``` above the required lines in the files 
+In version 2024.1, ```petalinux-build --sdk``` also fails. I only encountered these errors in Ubuntu 20.04, but not in 22.04. I suspect the reason this is happening is although most of the petalinux install is the same across different versions of Ubuntu, the x86 sysroot is generated using packages from the OS, and therefore can contain different versions of some tools. It is much easier to use 22.04, but if you must use 20.04, here are the steps to make it work
+Edit ```build/tmp/work/x86_64-nativesdk-petalinux-linux/nativesdk-libxcrypt/4.4.30-r0/git/build-aux/scripts/BuildCommon.pm``` and modify it according to [this commit](https://github.com/besser82/libxcrypt/pull/171/commits/ce562f4d33dc090fcd8f6ea1af3ba32cdc2b3c9c). Several perl modules are also missing, I installed these (Text::Tabs, Text::Template?, open, utf8, lib, bin, if, File::Spec::Functions) in a directory in my home folder (download package from cpan, tar -xf, ```perl Makefile.PL INSTALL_BASE=/home/username/perl```, ```make install```) and add ```BEGIN {push @INC, '/home/username/perl/lib/perl5'}``` above the required lines in the files 
 ```text
 build/tmp/work/x86_64-nativesdk-petalinux-linux/nativesdk-libxcrypt/4.4.30-r0/git/build-aux/scripts/expand-selected-hashes
 build/tmp/work/x86_64-nativesdk-petalinux-linux/nativesdk-libxcrypt/4.4.30-r0/git/build-aux/scripts/gen-crypt-hashes-h
@@ -87,7 +89,7 @@ build/tmp/work/x86_64-nativesdk-petalinux-linux/nativesdk-libxcrypt/4.4.30-r0/gi
 build/tmp/work/x86_64-nativesdk-petalinux-linux/nativesdk-automake/1.16.5-r0/automake-1.16.5/doc/help2man
 build/tmp/work/x86_64-nativesdk-petalinux-linux/nativesdk-autoconf/2.71-r0/recipe-sysroot-native/usr/bin/help2man
 ```
-For 2024.2, generateing man pages for automake and aotuconf also fails. The easiest way to solve this is skipping their generation altogether, by removeing every file from their respective folders, and creating and empty local.mk file in the. 
+For 2024.2, generating man pages for automake and autoconf also fails. The easiest way to solve this is skipping their generation altogether, by removing every file from their respective folders, and creating an empty local.mk file in them. 
 ```bash
 rm -r build/tmp/work/x86_64-nativesdk-petalinux-linux/nativesdk-autoconf/2.72e/autoconf-2.72e/man/
 mkdir build/tmp/work/x86_64-nativesdk-petalinux-linux/nativesdk-autoconf/2.72e/autoconf-2.72e/man/

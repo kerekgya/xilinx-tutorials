@@ -1,6 +1,7 @@
 ---
 title: PYNQ v3.0.1 on ZedBoard
 layout: default
+last_modified_at: 2024-01-05
 ---
 # PYNQ v3.0.1 on ZedBoard
 Since the ZedBoard is not one of the officially supported boards for PYNQ, there is no official image for it. In order to use PYNQ, an image has to be built manually.
