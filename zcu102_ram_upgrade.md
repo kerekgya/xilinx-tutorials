@@ -3,7 +3,6 @@ title: Upgrade RAM on Xilinx zcu102
 last_modified_at: 2024-01-05
 ---
 # Upgrade RAM on Xilinx zcu102
-# Disclamier: this guide kind of works, there are some parts where I don't understand what is happening and I only tested this with the basic vadd example
 The Xilinx zcu102 FPGA comes with a 4 GB DDR4 SODIMM on board. If you need more RAM, you can easily replace it, but reconfiguring the software to actually be able to use the capacity is a bit tricky.
 The way the memory controller on the board works is that the there is a lower range(ddr_low) with 32 bit addresses, out of which 2 GB can be used for the OS, and a ddr_high range, which is 36 bits longs and can support up to 32 GB memory, as it is described [here](https://docs.xilinx.com/r/en-US/ug1085-zynq-ultrascale-trm/System-Addresses).
 Using 36 bit memory is a bit slower than 32 bits.
