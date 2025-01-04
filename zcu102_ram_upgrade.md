@@ -1,5 +1,6 @@
 ---
 title: Upgrade RAM on Xilinx zcu102
+last_modified_at: 2024-01-05
 ---
 # Upgrade RAM on Xilinx zcu102
 # Disclamier: this guide kind of works, there are some parts where I don't understand what is happening and I only tested this with the basic vadd example
@@ -42,8 +43,6 @@ the_ROM_image:
 Note that the load adress of the device tree start with 8, which is crucial when using the ddr_high adress range, otherwise petalinux won't boot.
 After this you can build the platform and use it for application acceleration projects.
 
-After booting, I found that instead of the expected 14 GB of available RAM, all 16 GB was available, which I don't understand as it contradicts the config of petalinux...
-Also when trying to set CMA to 8192 MB I got an error saying that 4 GB is the upper limit, and no CMA was allocated, but I was able to run the vector add example regardless...
-????????????????
-I have no idea what is happening??
+After booting, I found that instead of the expected 14 GB of available RAM, all 16 GB was available, which I don't understand as it contradicts the config of petalinux, it seems like when using ddr_high, all of the memory is mapped to it, and the 2 GB in ddr_low is unmapped.
+Also when trying to set CMA to 8192 MB I got an error saying that 4 GB is the upper limit, and no CMA was allocated, but I was able to run the vector add example regardless. It seems like even embedded platforms support host pointers or somethin, I don't know, 
 [this](https://support.xilinx.com/s/article/000034737?language=en_US) might help. Or not.
