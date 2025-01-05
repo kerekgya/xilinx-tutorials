@@ -59,7 +59,7 @@ COMPATIBLE_MACHINE:zynq = ".*"
 ```
 The files might not exist before running the petlainux-build command, if you can't find them, run petalinux-build until you get the error message above.
 
-For version 2024.2 Xilinx tried to solve this problem by including earlier versions of xrt and zocl, but this doesn't actually solve the problem, as the last supported version of zocl doens't work with linux kernal versions starting from 6.1.
+For version 2024.2 Xilinx tried to solve this problem by including earlier versions of xrt and zocl, but this doesn't actually solve the problem, as the last supported version of zocl doesn't work with linux kernel versions starting from 6.1.
 In 2024.2, you also need to change ```components/yocto/layers/meta-xilinx/meta-xilinx-core/recipes-bsp/libdfx/libdfx_2024.2.bb```, and the format of xrt_git.bb also changed, to trick petalinux into running the build, change the line that says ```COMPATIBLE_HOST = "^$"``` to ```COMPATIBLE_HOST = ".*"```.
 
 This almost fixes the problem, but the petalinux tool still gives a very long error message (a few thousand warnings and just one error to be precise). The error message is the following:
