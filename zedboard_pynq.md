@@ -81,6 +81,6 @@ export PYNQ_SDIST_PATH=path/to/pynq-3.0.1.tar.gz
 cd PYNQ/sdbuild
 export BOARD_TO_BUILD=Pynq-ZED
 export PREBUILT_PATH=path/to/jammy.arm.3.0.1.tar.gz
-make PYNQ_SDIST=${PYNQ_SDIST_PATH} PREBUILT=${PREBUILT_PATH} BOARDDIR=${BOARD_REPO} BOARDS=${BOARD_TO_BUILD}
+make PYNQ_SDIST=${PYNQ_SDIST_PATH} PYNQ_ROOTFS=${PREBUILT_PATH} BOARDDIR=${BOARD_REPO} BOARDS=${BOARD_TO_BUILD}
 ```
 After this the build should run successfully, and you will have a PYNQ v3.0.1 image.
