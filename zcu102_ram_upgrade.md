@@ -13,7 +13,8 @@ First, create a hardware platform with the correct settings for the new RAM modu
 To create a bootable petalinux image, you need a petalinux project.
 ```sh
 source /opt/Xilinx/petalinux/2023.2/settings.sh
-petalinux-create -t project --template zynpmp
+petalinux-create -t project --template zynqMP -n zcu102_16
+cd zcu102_16
 petalinux-config --get-hw-description=exported_hardware.xsa
 ```
 In the petalinux menuconfig, change the following:
